@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EliteShop — متجر أزياء عصري •  by Ammar Maaty</title>
+  <meta name="description" content="عرض تجريبي لمتجر إلكتروني مصمم لعرض واجهة مستخدم احترافية: منتجات، فلاتر، wishlist، وعربة. مخصص للعرض — ليس نظام دفع أو إدارة حقيقية." />
+  <meta name="keywords" content="متجر الكتروني, ملابس, أزياء, frontend , storefront, wishlist, cart, EliteShop" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://example.com/" />
+  <link rel="alternate" href="?lang=ar" hreflang="ar" />
+  <link rel="alternate" href="?lang=en" hreflang="en" />
+  <meta name="theme-color" content="#0a0b0f" />
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="EliteShop — Modern Storefront •  by Ammar Maaty" />
+  <meta property="og:description" content="عرض تجريبي لمتجر إلكتروني — انظر التصميم، تجربة المستخدم، ووظائف السلة والـ wishlist." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1600&auto=format&fit=crop" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="author" content="Ammar Maaty" />
+  <!-- Simple favicon (inline SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%237c5cff'/><stop offset='1' stop-color='%2300d4ff'/></linearGradient></defs><circle cx='50' cy='50' r='40' fill='url(%23g)'/></svg>">
+  <!-- Structured Data (Organization & Website) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "EliteShop ()",
+        "url": "https://example.com/",
+        "logo": "https://example.com/logo.png",
+        "sameAs": [
+          "https://.com/AmmarMaaty",
+          "https://www.linkedin.com/in/ammarmaaty"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "url": "https://example.com/",
+        "name": "EliteShop — ",
+        "author": {
+          "@type":"Person",
+          "name":"Ammar Maaty",
+          "url":"https://.com/AmmarMaaty"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0a0b0f;
+      --surface:#11131a;
+      --muted:#1a1d26;
+      --text:#e9ecf1;
+      --sub:#a3adc2;
+      --brand:#7c5cff;
+      --brand-2:#00d4ff;
+      --danger:#ff496d;
+      --ok:#2ecc71;
+      --border:rgba(255,255,255,.08);
+      --card-rad:20px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --accent-glow: 0 6px 24px rgba(124,92,255,.12);
+      --max-width:1200px;
+    }
+    [data-theme="light"]{
+      --bg:#ffffff;
+      --surface:#ffffff;
+      --muted:#f3f4f6;
+      --text:#0b1020;
+      --sub:#475569;
+      --border:rgba(11,16,32,.06);
+      --shadow:0 8px 20px rgba(11,16,32,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg) 0%, var(--muted) 40%, var(--surface) 100%);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* layout simplified but polished */
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 1rem}
+    .topbar{display:flex;align-items:center;justify-content:center;gap:.6rem;padding:.45rem 1rem;background:linear-gradient(90deg,rgba(124,92,255,.06),rgba(0,212,255,.03));border-bottom:1px solid var(--border);font-size:.92rem;color:var(--text)}
+    .badge{padding:.22rem .5rem;border-radius:999px;background:rgba(124,92,255,.08);border:1px solid var(--border);font-weight:600;color:var(--text)}
+
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(8px);background:rgba(255,255,255,0.9);border-bottom:1px solid var(--border)}
+    .navwrap{display:flex;align-items:center;gap:1rem;padding:.9rem}
+    .logo{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.2px;color:var(--text)}
+    .logo-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 0 12px rgba(124,92,255,.25)}
+    .navsearch{flex:1;display:flex;gap:.6rem}
+    .input{flex:1;background:var(--muted);border:1px solid var(--border);color:var(--text);padding:.72rem .9rem;border-radius:12px;outline:none}
+    .btn{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:white;padding:.72rem .95rem;border-radius:12px;font-weight:600;cursor:pointer;box-shadow:var(--accent-glow)}
+    .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
+    .iconbtn{background:var(--muted);border:1px solid var(--border);padding:.6rem .85rem;border-radius:12px;cursor:pointer;display:flex;align-items:center;gap:.4rem}
+
+    .hero{display:grid;grid-template-columns:1.3fr .7fr;gap:16px;margin:24px auto}
+    .heroCard{background:linear-gradient(180deg,#fff, #fbfbfd);border:1px solid var(--border);border-radius:var(--card-rad);padding:28px;box-shadow:var(--shadow);position:relative;overflow:hidden;color:var(--text)}
+    .heroCard h1{margin:0 0 10px;font-size:2rem;line-height:1.05;color:var(--text)}
+    .heroImg{border-radius:16px;overflow:hidden;border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+
+    .row{display:grid;grid-template-columns:260px 1fr;gap:16px}
+    .panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;color:var(--text)}
+    .products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.08)}
+    .thumb{position:relative}
+    .info{padding:14px;display:flex;flex-direction:column;gap:8px;color:var(--text)}
+    .title{font-weight:600;color:var(--text)}
+    .price{display:flex;align-items:center;gap:8px}
+    .muted{color:var(--sub);font-size:.9rem}
+
+    .drawer{position:fixed;top:0;right:-420px;width:420px;height:100%;background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--shadow);transition:right .35s ease;z-index:60;display:flex;flex-direction:column}
+    .drawer.open{right:0}
+
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.15);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:70}
+    .modal.show{display:flex}
+
+    footer{margin-top:60px;border-top:1px solid var(--border);padding:32px 0;color:var(--sub);background:transparent}
+
+    .cookie{position:fixed;left:16px;right:16px;bottom:16px;background:var(--surface);border:1px solid var(--border);padding:12px 16px;border-radius:12px;display:flex;justify-content:space-between;gap:12px;align-items:center;z-index:90;box-shadow:var(--shadow)}
+    .cookie p{margin:0;color:var(--sub)}
+
+    /* admin small UI */
+    .admin-toggle{font-size:.85rem;padding:.3rem .6rem;border-radius:10px;border:1px dashed var(--border);background:transparent;color:var(--sub);cursor:pointer}
+    .admin-panel{position:fixed;left:16px;top:86px;z-index:120;background:var(--surface);border:1px solid var(--border);padding:12px;border-radius:12px;box-shadow:var(--shadow);width:360px;max-height:80vh;overflow:auto;display:none}
+    .admin-panel.show{display:block}
+    .field{margin-bottom:8px}
+    .chipbtn{display:inline-block;padding:.28rem .5rem;border-radius:999px;background:rgba(255,255,255,.03);border:1px solid var(--border);font-size:.85rem;margin-right:6px;margin-bottom:6px}
+
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
+      .products{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      .products{grid-template-columns:1fr}
+      .input{display:none}
+      .navwrap{padding:.6rem}
+    }
+
+    /* small helpers for product list */
+    .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;padding:8px;border-bottom:1px dashed var(--border)}
+    .old{opacity:.6;text-decoration:line-through;font-size:.9rem}
+    .tag{position:absolute;left:12px;top:12px;background:linear-gradient(90deg,var(--brand),var(--brand-2));padding:6px 10px;border-radius:999px;font-weight:700;color:#fff}
+    .wish{position:absolute;right:12px;top:12px;background:transparent;border:none;color:var(--text);font-size:18px;cursor:pointer}
+    .actions{display:flex;gap:8px;margin-top:8px}
+    .btn.small{padding:.42rem .6rem;font-size:.9rem}
+    .qty{display:flex;flex-direction:column;align-items:center;gap:6px}
+  </style>
+</head>
+<body>
+  <div class="topbar container">
+    <span class="badge" data-i18n="badge">DEMO</span>
+    <span data-i18n="topline">Portfolio Showcase — Built by <strong>Ammar Maaty</strong> • Use as  to present your work</span>
+  </div>
+
+  <!-- Limitations / Notice (visible) -->
+  <div class="container" style="margin-top:10px;margin-bottom:6px">
+    <div class="panel" style="display:flex;gap:10px;align-items:center">
+      <div style="flex:1">
+        <strong>ملاحظة مهمة — قيود النسخة التجريبية</strong>
+        <div class="muted" style="margin-top:6px;line-height:1.4">
+          هذه نسخة عرض ثابتة (Static). لا يوجد باك‑إند حقيقي ولا قاعدة بيانات: البيانات (عربة، قائمة رغبات، و/أو عناصر مُضافة محليًا) مخزنة في LocalStorage فقط — ليست محمية ولا مستقرة. الدفع تجريبي فقط ولا يتصل ببوابة دفع. لتحويلها لمنتج حقيقي راجع الاقتراحات في قسم "How to use & customize".
+        </div>
+      </div>
+      <button class="admin-toggle" id="openAdmin" title="Local admin">لوحة إدارة محلية</button>
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="navwrap container">
+      <a class="logo" href="#" aria-label="Go to home">
+        <span class="logo-dot" aria-hidden="true"></span>
+        <span data-i18n="brand">EliteShop</span>
+      </a>
+
+      <div class="navsearch" role="search">
+        <input id="q" class="input" placeholder="Search products, brands, categories…" aria-label="Search products" data-i18n-placeholder="search.placeholder" />
+        <button type="button" class="btn" id="searchBtn" data-i18n="search">Search</button>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center">
+        <button type="button" class="iconbtn" id="langToggle" aria-label="Toggle language" title="Language">EN</button>
+        <button type="button" class="iconbtn pill" id="themeToggle" title="Toggle theme" aria-pressed="false">🌓</button>
+
+        <button type="button" class="iconbtn pill" id="openWishlist" title="Wishlist" aria-controls="wishDrawer" aria-expanded="false">
+          <span class="icon" aria-hidden="true">♡</span>
+          <span class="sr-only" data-i18n="wishlist_sr">Wishlist</span>
+          <span class="pill-count" id="wishCount">0</span>
+        </button>
+
+        <button type="button" class="iconbtn pill" id="openCart" title="Cart" aria-controls="cartDrawer" aria-expanded="false">
+          <span class="icon" aria-hidden="true">🛒</span>
+          <span class="sr-only" data-i18n="cart_sr">Cart</span>
+          <span class="pill-count" id="cartCount">0</span>
+        </button>
+
+        <a class="btn" id="hireBtn" href="mailto:marmaty815@gmail.com?subject=Hire%20Request" title="Hire me" data-i18n="hire">Hire me</a>
+        <a class="btn ghost" id="cvBtn" href="/AmmarMaaty_Resume.pdf" target="_blank" rel="noopener noreferrer" title="Download CV" data-i18n="download_cv">Download CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="heroCard">
+        <div class="hero-meta">
+          <span class="pro-badge" data-i18n="pro_badge">Portfolio </span>
+          <span class="muted" data-i18n="byline">Built & Designed by <strong>Ammar Maaty</strong></span>
+        </div>
+        <h1 id="heroTitle" data-i18n="hero_title">Wear your style. Shop smart. —  storefront to showcase my frontend work.</h1>
+        <p data-i18n="hero_sub">Show clients an end-to-end static storefront with polished UI, filters, wishlist, cart, Quick View, and marketing sections — no backend required.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#shop" data-i18n="show_products">Show products</a>
+          <button type="button" class="btn ghost" id="openContact" data-i18n="contact_me">Contact me</button>
+        </div>
+        <div style="margin-top:16px" class="muted" data-i18n="tip">Tip: replace product images, phone and links, then deploy to  Pages / Netlify / Vercel.</div>
+      </div>
+
+      <div class="heroImg" aria-hidden="true">
+        <picture>
+          <source type="image/webp" srcset="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&fm=webp&w=800 800w, https://images.unsplash.com/photo-1544441893-675973e31985?q=80&fm=webp&w=1200 1200w" sizes="(max-width:560px) 100vw, 40vw">
+          <img loading="lazy" width="1200" height="800" src="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1200&auto=format&fit=crop" alt="fashion" />
+        </picture>
+      </div>
+    </section>
+
+    <div style="margin-top:18px" class="toolbar" role="navigation" aria-label="Shop controls">
+      <div class="tabs" id="tabs" role="tablist" aria-label="Categories">
+        <button type="button" class="tab active" data-cat="all" role="tab" aria-selected="true" data-i18n="cat_all">All</button>
+        <button type="button" class="tab" data-cat="men" role="tab" data-i18n="cat_men">Men</button>
+        <button type="button" class="tab" data-cat="women" role="tab" data-i18n="cat_women">Women</button>
+        <button type="button" class="tab" data-cat="kids" role="tab" data-i18n="cat_kids">Kids</button>
+        <button type="button" class="tab" data-cat="shoes" role="tab" data-i18n="cat_shoes">Shoes</button>
+        <button type="button" class="tab" data-cat="accessories" role="tab" data-i18n="cat_acc">Accessories</button>
+      </div>
+
+      <div class="sort" style="margin-left:auto">
+        <label for="sort" class="muted" data-i18n="sort_label">Sort</label>
+        <select id="sort" aria-label="Sort products">
+          <option value="featured" data-i18n="sort_featured">Featured</option>
+          <option value="price-asc" data-i18n="sort_price_asc">Price: Low to High</option>
+          <option value="price-desc" data-i18n="sort_price_desc">Price: High to Low</option>
+          <option value="rating-desc" data-i18n="sort_rating">Rating: High to Low</option>
+          <option value="new" data-i18n="sort_new">Newest</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="row" id="shop">
+      <aside class="panel" aria-label="Filters">
+        <h3 data-i18n="filters">Filters</h3>
+        <div class="filter-group">
+          <div class="muted" data-i18n="price">Price</div>
+          <input type="range" id="priceRange" class="range" min="5" max="200" value="200" aria-label="Maximum price">
+          <div class="muted" data-i18n="upto">Up to $<span id="priceVal">200</span></div>
+        </div>
+        <div class="filter-group">
+          <div class="muted" data-i18n="size">Size</div>
+          <label class="check"><input type="checkbox" class="f-size" value="XS"> XS</label>
+          <label class="check"><input type="checkbox" class="f-size" value="S"> S</label>
+          <label class="check"><input type="checkbox" class="f-size" value="M"> M</label>
+          <label class="check"><input type="checkbox" class="f-size" value="L"> L</label>
+          <label class="check"><input type="checkbox" class="f-size" value="XL"> XL</label>
+        </div>
+        <div class="filter-group">
+          <div class="muted" data-i18n="color">Color</div>
+          <label class="check"><input type="checkbox" class="f-color" value="Black"> Black</label>
+          <label class="check"><input type="checkbox" class="f-color" value="White"> White</label>
+          <label class="check"><input type="checkbox" class="f-color" value="Blue"> Blue</label>
+          <label class="check"><input type="checkbox" class="f-color" value="Beige"> Beige</label>
+        </div>
+        <div class="filter-group">
+          <div class="muted" data-i18n="rating">Rating</div>
+          <label class="check"><input type="radio" name="rat" class="f-rating" value="4"> 4★ & up</label>
+          <label class="check"><input type="radio" name="rat" class="f-rating" value="3"> 3★ & up</label>
+          <label class="check"><input type="radio" name="rat" class="f-rating" value="0" checked> Any</label>
+        </div>
+        <div class="filter-group">
+          <button type="button" class="btn ghost" id="clearFilters" data-i18n="clear_filters">Clear Filters</button>
+        </div>
+      </aside>
+
+      <main>
+        <div id="resultsNote" class="muted" style="margin:6px 0 10px"></div>
+        <div class="products" id="grid" aria-live="polite"></div>
+
+        <div class="marketing" style="margin-top:22px">
+          <div>
+            <h3 data-i18n="why_">Why this ?</h3>
+            <p class="muted" data-i18n="why__text">Designed to be a complete frontend sample you can show to clients: polished UI, accessible controls, light performance bumps, and reusable code — all contained in a single file for easy deployment.</p>
+            <div style="margin-top:12px" class="clients" aria-hidden="true">
+              <img loading="lazy" src="https://avatars.usercontent.com/u/9919?s=40&v=4" alt="Client" style="width:64px;height:32px;object-fit:contain;opacity:.85;border-radius:6px" />
+              <img loading="lazy" src="https://avatars.usercontent.com/u/2?s=40&v=4" alt="Client" style="width:64px;height:32px;object-fit:contain;opacity:.85;border-radius:6px" />
+              <img loading="lazy" src="https://avatars.usercontent.com/u/583231?s=40&v=4" alt="Client" style="width:64px;height:32px;object-fit:contain;opacity:.85;border-radius:6px" />
+            </div>
+          </div>
+
+          <div>
+            <h3 data-i18n="testimonials">Testimonials</h3>
+            <div class="testimonial">
+              <div style="font-weight:700" data-i18n="t1">“Professional, fast, and reliable — delivered a great  for our pitch.”</div>
+              <div class="muted" style="margin-top:8px">— Client A, Product Manager</div>
+            </div>
+            <div class="testimonial" style="margin-top:10px">
+              <div style="font-weight:700" data-i18n="t2">“Clean code and beautiful UI — we used this as a reference for our internal storefront.”</div>
+              <div class="muted" style="margin-top:8px">— Client B, Founder</div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </section>
+
+    <section id="how" style="margin-top:40px">
+      <div class="panel">
+        <h3 data-i18n="how_title">How to use & customize</h3>
+        <ol class="muted" style="line-height:1.7">
+          <li data-i18n="how_1">Edit the <code>PRODUCTS</code> array to add your items (name, price, sizes, colors, images). For local editing without a backend use the "لوحة إدارة محلية" button — it only stores data in your browser (LocalStorage).</li>
+          <li data-i18n="how_2">Replace Unsplash image URLs with your own product images or upload to an image CDN (Cloudinary / Imgix / S3 + CDN). Add proper srcset and width/height to reduce CLS and improve performance (already supported by the imgPicture helper).</li>
+          <li data-i18n="how_3">Update the WhatsApp phone number and Formspree/contact endpoint before ing to clients. For real orders connect a server endpoint or a checkout provider (Stripe, PayPal, or hosted checkout).</li>
+          <li data-i18n="how_4">SEO: update the title, description, canonical, and og:image to match your brand. Add per-product structured data server-side or generate unique Product JSON-LD on product pages for better indexing.</li>
+        </ol>
+        <div style="margin-top:12px;color:var(--danger)"><strong>تحذير أمني:</strong> بيانات العربة وWishlist مخزنة محليًا في LocalStorage وليست مؤمنة — لا تستخدم هذا لتخزين بيانات حساسة أو معلومات دفع.</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart Drawer -->
+  <aside class="drawer" id="cartDrawer" aria-label="Shopping Cart" aria-hidden="true">
+    <div class="drawer-header" style="display:flex;justify-content:space-between;align-items:center;padding:12px">
+      <strong data-i18n="cart_title">Shopping Cart</strong>
+      <button type="button" class="iconbtn" id="closeCart">✕</button>
+    </div>
+    <div class="drawer-body" id="cartBody" style="padding:12px;flex:1;overflow:auto"></div>
+    <div class="checkout" style="padding:12px;border-top:1px dashed var(--border)">
+      <label class="muted" data-i18n="promo">Have a promo code?</label>
+      <div style="display:flex;gap:8px">
+        <input id="couponInput" class="input" placeholder="Code" aria-label="Coupon code" />
+        <button type="button" class="btn ghost" id="applyCoupon" data-i18n="apply">Apply</button>
+      </div>
+      <div class="total" style="display:flex;justify-content:space-between;margin-top:8px"><span data-i18n="subtotal">Subtotal</span><span id="subtotal">$0.00</span></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button type="button" class="btn" id="checkoutBtn" data-i18n="checkout">Proceed to Checkout</button>
+        <button type="button" class="btn ghost" id="whatsappBtn" data-i18n="order_wa">Order via WhatsApp</button>
+      </div>
+      <div class="muted" style="font-size:.85rem;margin-top:8px" data-i18n="checkout_note">Mock checkout for . Replace with payment provider for production.</div>
+    </div>
+  </aside>
+
+  <!-- Wishlist Drawer -->
+  <aside class="drawer" id="wishDrawer" aria-label="Wishlist" aria-hidden="true">
+    <div class="drawer-header" style="display:flex;justify-content:space-between;align-items:center;padding:12px">
+      <strong data-i18n="wish_title">Wishlist</strong>
+      <button type="button" class="iconbtn" id="closeWish">✕</button>
+    </div>
+    <div class="drawer-body" id="wishBody" style="padding:12px;flex:1;overflow:auto"></div>
+  </aside>
+
+  <!-- Quick View Modal -->
+  <div class="modal" id="quickModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="background:var(--surface);border-radius:14px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:900px">
+      <div class="thumb" style="padding:12px;display:flex;align-items:center;justify-content:center">
+        <img id="qImg" alt="product" loading="lazy" style="max-height:380px;object-fit:cover;width:100%;height:100%;border-radius:8px"/>
+      </div>
+      <div class="modal-body">
+        <h2 id="qTitle" style="margin:0 0 6px"></h2>
+        <div class="muted" id="qCat"></div>
+        <div style="display:flex;align-items:center;gap:10px;margin:10px 0">
+          <div id="qPrice" class="title"></div>
+          <div class="muted" id="qRating"></div>
+        </div>
+        <div class="muted" style="margin:10px 0" id="qDesc"></div>
+        <div>
+          <div class="muted" style="margin:6px 0 4px" data-i18n="color_label">Color</div>
+          <div id="qColors" class="variants"></div>
+          <div class="muted" style="margin:10px 0 4px" data-i18n="size_label">Size</div>
+          <div id="qSizes" class="variants"></div>
+        </div>
+        <div class="actions" style="margin-top:14px">
+          <button type="button" class="btn" id="qAdd" data-i18n="add_to_cart">Add to Cart</button>
+          <button type="button" class="btn ghost" id="qWish">♡ Wishlist</button>
+          <button type="button" class="iconbtn" id="qShare" data-i18n="share">Share</button>
+          <button type="button" class="iconbtn" id="qClose">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Modal (for hiring) -->
+  <div class="modal" id="contactModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width:700px;grid-template-columns:1fr">
+      <div class="modal-body">
+        <h2 style="margin-top:0" data-i18n="contact_title">Contact / Hire me</h2>
+        <p class="muted" data-i18n="contact_sub">Use this form to send a  inquiry. Replace action with your Formspree or server endpoint before publishing.</p>
+        <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <input type="text" name="name" class="input" placeholder="Your name" required style="margin:8px 0"/>
+          <input type="email" name="email" class="input" placeholder="Email" required style="margin:8px 0"/>
+          <textarea name="message" class="input" placeholder="Tell me about your project" rows="4" required style="margin:8px 0"></textarea>
+          <div style="display:flex;gap:8px;justify-content:flex-end">
+            <button type="submit" class="btn" data-i18n="send">Send</button>
+            <button type="button" class="btn ghost" id="closeContact" data-i18n="close">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Local Admin Panel (client-side only) -->
+  <div class="admin-panel" id="adminPanel" aria-hidden="true" role="dialog" aria-label="Local admin">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <strong>لوحة إدارة محلية (LocalStorage)</strong>
+      <button class="iconbtn" id="closeAdmin">✕</button>
+    </div>
+
+    <div class="field">
+      <label class="muted">Name</label>
+      <input id="adm_name" class="input" placeholder="Product name">
+    </div>
+    <div class="field">
+      <label class="muted">Category</label>
+      <input id="adm_cat" class="input" placeholder="e.g. men, women, shoes">
+    </div>
+    <div class="field" style="display:flex;gap:8px">
+      <div style="flex:1"><label class="muted">Price</label><input id="adm_price" class="input" type="number" step="0.01"></div>
+      <div style="flex:1"><label class="muted">Old price</label><input id="adm_old" class="input" type="number" step="0.01"></div>
+    </div>
+    <div class="field">
+      <label class="muted">Image URL</label>
+      <input id="adm_img" class="input" placeholder="https://...">
+    </div>
+    <div class="field">
+      <label class="muted">Colors (comma separated)</label>
+      <input id="adm_colors" class="input" placeholder="Black,White">
+    </div>
+    <div class="field">
+      <label class="muted">Sizes (comma separated)</label>
+      <input id="adm_sizes" class="input" placeholder="S,M,L">
+    </div>
+    <div class="field">
+      <label class="muted">Tags (comma separated)</label>
+      <input id="adm_tags" class="input" placeholder="New,Limited">
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+      <button class="btn ghost" id="adm_clear">Clear</button>
+      <button class="btn" id="adm_save">Add product</button>
+    </div>
+
+    <hr style="margin:12px 0;border-color:var(--border)">
+
+    <div style="display:flex;gap:8px;justify-content:space-between;align-items:center">
+      <div class="muted">Export / Import products (local)</div>
+      <div style="display:flex;gap:6px">
+        <button class="btn ghost" id="adm_export">Export</button>
+        <button class="btn ghost" id="adm_import">Import</button>
+      </div>
+    </div>
+
+    <textarea id="adm_import_area" class="input" placeholder="Paste JSON to import" style="height:120px;margin-top:8px"></textarea>
+    <div class="muted" style="margin-top:8px;font-size:.85rem">ملحوظة: هذا النظام محلي فقط — لا يُنصح به للاستخدام الحي. للاستخدام الفعلي استخدم لوحة إدارة حقيقية / CMS أو واجهة خلفية تُخزن المنتجات في قاعدة بيانات.</div>
+  </div>
+
+  <footer>
+    <div class="container wrap" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start">
+      <div>
+        <div class="logo"><span class="logo-dot" aria-hidden="true"></span><span data-i18n="brand">EliteShop</span></div>
+        <div class="muted" style="margin-top:8px">© <span id="yr"></span> EliteShop. All rights reserved.</div>
+        <div style="margin-top:8px">Built by <a href="https://.com/AmmarMaaty" target="_blank" rel="noopener noreferrer">Ammar Maaty</a> — <a href="mailto:marmaty815@gmail.com">marmaty815@gmail.com</a></div>
+      </div>
+      <div>
+        <strong data-i18n="help">Help</strong>
+        <div class="muted">Shipping • Returns • Size Guide • Contact</div>
+      </div>
+      <div>
+        <strong data-i18n="get_in_touch">Get in touch</strong>
+        <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+          <input id="newsEmail" class="input" placeholder="Your email" aria-label="Newsletter email"/>
+          <button type="button" class="btn" id="subBtn" data-i18n="subscribe">Subscribe</button>
+        </div>
+        <div style="margin-top:10px" class="muted">Follow:
+          <a href="https://.com/AmmarMaaty" target="_blank" rel="noopener noreferrer"></a> •
+          <a href="https://www.linkedin.com/in/ammarmaaty" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie" id="cookieBanner" style="display:none" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <p class="muted" data-i18n="cookie_text">I use anonymous analytics to improve s. Allow loading analytics?</p>
+    <div style="display:flex;gap:8px">
+      <button type="button" class="btn" id="acceptCookie" data-i18n="allow">Allow</button>
+      <button type="button" class="btn ghost" id="declineCookie" data-i18n="decline">Decline</button>
+    </div>
+  </div>
+
+  <script>
+    // -----------------------
+    // Translations / i18n
+    // -----------------------
+    const I18N = {
+      ar: {
+        badge: "DEMO",
+        topline: "عرض توضيحي للمحفظة — من تصميم وبناء Ammar Maaty • استخدمه لعرض مهاراتك",
+        brand: "EliteShop",
+        search: "بحث",
+        "search.placeholder": "ابحث عن منتجات، علامات تجارية، فئات…",
+        wishlist_sr: "قائمة الرغبات",
+        cart_sr: "عربة التسوق",
+        hire: "توظيف",
+        download_cv: "تحميل السيرة",
+        pro_badge: "عرض بورتفوليو",
+        byline: "من تصميم وبناء <strong>Ammar Maaty</strong>",
+        hero_title: "اعرض أسلوبك. تسوق بذكاء. عرض تجريبي لعمل واجهات متقدمة.",
+        hero_sub: "عرض تجربة متجر كاملة بدون باك‑إند: واجهة أنيقة، فلاتر، wishlist، عربة، ونماذج اتصال.",
+        tip: "نصيحة: استبدل صور المنتجات والروابط ثم انشر على  Pages/Netlify/Vercel.",
+        show_products: "عرض المنتجات",
+        contact_me: "تواصل معي",
+        cat_all: "الكل",
+        cat_men: "رجال",
+        cat_women: "نساء",
+        cat_kids: "أطفال",
+        cat_shoes: "أحذية",
+        cat_acc: "اكسسوارات",
+        sort_label: "ترتيب",
+        sort_featured: "مميز",
+        sort_price_asc: "السعر: من الأقل",
+        sort_price_desc: "السعر: من الأعلى",
+        sort_rating: "التقييم: الأعلى",
+        sort_new: "الأحدث",
+        filters: "الفلاتر",
+        price: "السعر",
+        upto: "حتى $<span id='priceVal'>200</span>",
+        size: "المقاس",
+        color: "اللون",
+        rating: "التقييم",
+        clear_filters: "مسح الفلاتر",
+        why_: "لماذا هذا العرض؟",
+        why__text: "عرض واجهة كاملة تعرض مهارات Frontend: واجهة مصقولة، وصولية، تحسينات أداء، وكود قابل لإعادة الاستخدام.",
+        testimonials: "آراء العملاء (توضيحية)",
+        t1: "“احترافي، سريع، موثوق — قدموا عرض ممتاز لعرضنا.”",
+        t2: "“كود أنيق وواجهة رائعة — استعملناها كمرجع داخلي.”",
+        how_title: "كيفية الاستخدام والتخصيص",
+        how_1: "حرر مصفوفة PRODUCTS لإضافة منتجاتك (الاسم، السعر، الألوان، الصور).",
+        how_2: "استبدل روابط Unsplash بصورك أو CDN وادعم srcset.",
+        how_3: "حدّث رقم WhatsApp وFormspree قبل العرض الحي.",
+        how_4: "انشر:  Pages / Netlify / Vercel. استخدم نطاقًا مخصصًا للإنتاج.",
+        cart_title: "عربة التسوق",
+        promo: "هل لديك رمز خصم؟",
+        apply: "تطبيق",
+        subtotal: "المجموع الفرعي",
+        checkout: "المتابعة للدفع",
+        order_wa: "اطلب عبر WhatsApp",
+        checkout_note: "عملية دفع تجريبية. استبدل بخدمة دفع في الإنتاج.",
+        wish_title: "قائمة الرغبات",
+        color_label: "اللون",
+        size_label: "المقاس",
+        add_to_cart: "أضف للعربة",
+        share: "مشاركة",
+        contact_title: "تواصل / توظيف",
+        contact_sub: "استخدم هذا النموذج لإرسال استفسار عن العرض. استبدل ACTION برابط Formspree.",
+        send: "إرسال",
+        close: "إغلاق",
+        help: "مساعدة",
+        get_in_touch: "ابقى على تواصل",
+        subscribe: "اشترك",
+        cookie_text: "أستخدم تحليلات مجهولة لتحسين العروض. السماح بتحميل التحليلات؟",
+        allow: "السماح",
+        decline: "رفض",
+      },
+      en: {
+        badge: "DEMO",
+        topline: "Portfolio showcase — built by Ammar Maaty • Use as a  for clients",
+        brand: "EliteShop",
+        search: "Search",
+        "search.placeholder": "Search products, brands, categories…",
+        wishlist_sr: "Wishlist",
+        cart_sr: "Cart",
+        hire: "Hire me",
+        download_cv: "Download CV",
+        pro_badge: "Portfolio ",
+        byline: "Built & Designed by <strong>Ammar Maaty</strong>",
+        hero_title: "Wear your style. Shop smart. —  storefront to showcase my frontend work.",
+        hero_sub: "Show clients an end-to-end static storefront with polished UI, filters, wishlist, cart, Quick View, and marketing sections — no backend required.",
+        tip: "Tip: replace product images, phone and links, then deploy to  Pages / Netlify / Vercel.",
+        show_products: "Show products",
+        contact_me: "Contact me",
+        cat_all: "All",
+        cat_men: "Men",
+        cat_women: "Women",
+        cat_kids: "Kids",
+        cat_shoes: "Shoes",
+        cat_acc: "Accessories",
+        sort_label: "Sort",
+        sort_featured: "Featured",
+        sort_price_asc: "Price: Low to High",
+        sort_price_desc: "Price: High to Low",
+        sort_rating: "Rating: High to Low",
+        sort_new: "Newest",
+        filters: "Filters",
+        price: "Price",
+        upto: "Up to $<span id='priceVal'>200</span>",
+        size: "Size",
+        color: "Color",
+        rating: "Rating",
+        clear_filters: "Clear Filters",
+        why_: "Why this ?",
+        why__text: "Designed to be a complete frontend sample you can show to clients: polished UI, accessible controls, light performance bumps, and reusable code — all contained in a single file for easy deployment.",
+        testimonials: "Testimonials",
+        t1: "“Professional, fast, and reliable — delivered a great  for our pitch.”",
+        t2: "“Clean code and beautiful UI — we used this as a reference for our internal storefront.”",
+        how_title: "How to use & customize",
+        how_1: "Edit the PRODUCTS array to add your items (name, price, sizes, colors, images).",
+        how_2: "Replace Unsplash image URLs with your own product images or a CDN and add srcset for responsive images.",
+        how_3: "Update the WhatsApp phone number and Formspree/contact endpoint before ing to clients.",
+        how_4: "Deploy:  Pages / Netlify / Vercel — one single HTML file is enough. Use a custom domain and add an SSL cert for production.",
+        cart_title: "Shopping Cart",
+        promo: "Have a promo code?",
+        apply: "Apply",
+        subtotal: "Subtotal",
+        checkout: "Proceed to Checkout",
+        order_wa: "Order via WhatsApp",
+        checkout_note: "Mock checkout for . Replace with payment provider for production.",
+        wish_title: "Wishlist",
+        color_label: "Color",
+        size_label: "Size",
+        add_to_cart: "Add to Cart",
+        share: "Share",
+        contact_title: "Contact / Hire me",
+        contact_sub: "Use this form to send a  inquiry. Replace action with your Formspree or server endpoint before publishing.",
+        send: "Send",
+        close: "Close",
+        help: "Help",
+        get_in_touch: "Get in touch",
+        subscribe: "Subscribe",
+        cookie_text: "I use anonymous analytics to improve s. Allow loading analytics?",
+        allow: "Allow",
+        decline: "Decline",
+      }
+    };
+
+    // -----------------------
+    // Data + state
+    // -----------------------
+    // Core  products (default). You can add more from the local admin panel — they will be persisted to LocalStorage (key = custom_products).
+    const PRODUCTS = [
+      { id: 'm-ts-001', name: 'Classic Cotton Tee', category: 'men', price: 19.99, oldPrice: 29.99, rating: 4.6, colors: ['Black','White','Blue'], sizes: ['S','M','L','XL'], img: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200&auto=format&fit=crop', desc: 'Soft, breathable, everyday tee with premium stitching.', tags: ['Best Seller'] },
+      { id: 'w-dr-002', name: 'Satin Midi Dress', category: 'women', price: 44.5, oldPrice: 0, rating: 4.8, colors: ['Beige','Black'], sizes: ['XS','S','M','L'], img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop', desc: 'Elegant satin midi with flattering silhouette for day to night.', tags: ['New'] },
+      { id: 'k-ho-003', name: 'Kids Hoodie', category: 'kids', price: 24.0, oldPrice: 34.0, rating: 4.4, colors: ['Blue','Black'], sizes: ['S','M','L'], img: 'https://images.unsplash.com/photo-1520974722071-69aabc0cc7d7?q=80&w=1200&auto=format&fit=crop', desc: 'Cozy fleece hoodie for everyday adventures.', tags: ['-30%'] },
+      { id: 'u-sn-004', name: 'Street Sneakers', category: 'shoes', price: 59.0, oldPrice: 79.0, rating: 4.7, colors: ['White','Black'], sizes: ['38','39','40','41','42','43'], img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop', desc: 'Lightweight sneakers with cushioned sole for all-day comfort.', tags: ['Trending'] },
+      { id: 'w-ts-005', name: 'Oversized Tee', category: 'women', price: 21.0, oldPrice: 0, rating: 4.2, colors: ['Black','White'], sizes: ['S','M','L'], img: 'https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=1200&auto=format&fit=crop', desc: 'Relaxed fit tee in premium cotton jersey.', tags: [] },
+      { id: 'a-bg-006', name: 'Minimal Backpack', category: 'accessories', price: 32.0, oldPrice: 0, rating: 4.5, colors: ['Black','Beige'], sizes: ['Uni'], img: 'https://images.unsplash.com/photo-1520974722071-69aabc0cc7d7?q=80&w=1200&auto=format&fit=crop', desc: 'Water‑resistant backpack with laptop sleeve up to 15.6".', tags: ['Limited'] }
+    ];
+
+    const PROMOS = { 'RAMADAN40': 0.4, 'WELCOME10': 0.1 };
+
+    const state = {
+      lang: 'ar',
+      cat: 'all',
+      q: '',
+      sort: 'featured',
+      maxPrice: 200,
+      sizes: new Set(),
+      colors: new Set(),
+      rating: 0,
+      cart: JSON.parse(localStorage.getItem('cart')||'[]'),
+      wish: JSON.parse(localStorage.getItem('wish')||'[]'),
+      quick: { id:null, color:null, size:null },
+      analyticsAllowed: localStorage.getItem('analytics') === 'true'
+    };
+
+    const $ = s => document.querySelector(s);
+    const $$ = s => [...document.querySelectorAll(s)];
+
+    function money(v){return `$${v.toFixed(2)}`}
+    function save(){localStorage.setItem('cart',JSON.stringify(state.cart));localStorage.setItem('wish',JSON.stringify(state.wish));}
+
+    // -----------------------
+    // Load custom products (local admin) and merge into PRODUCTS
+    // -----------------------
+    function loadCustomProducts(){
+      try{
+        const raw = localStorage.getItem('custom_products');
+        if(!raw) return;
+        const arr = JSON.parse(raw);
+        if(!Array.isArray(arr)) return;
+        // merge (but avoid id collisions)
+        arr.forEach(p=>{
+          if(!p.id) p.id = 'c-' + Math.random().toString(36).slice(2,9);
+          const exists = PRODUCTS.find(x=>x.id===p.id);
+          if(!exists) PRODUCTS.push(p);
+        });
+      }catch(e){
+        console.warn('Invalid custom_products in LocalStorage');
+      }
+    }
+
+    // -----------------------
+    // i18n helpers
+    // -----------------------
+    function applyTranslations(lang){
+      state.lang = lang;
+      // set html attributes
+      document.documentElement.lang = lang;
+      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+      // update static DOM nodes with data-i18n
+      $$('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if(I18N[lang] && I18N[lang][key] !== undefined){
+          // keep innerHTML for some nodes containing <strong>
+          if(el.dataset.html === "true" || el.innerHTML.includes('<strong')) el.innerHTML = I18N[lang][key];
+          else el.textContent = I18N[lang][key];
+        }
+      });
+
+      // attributes placeholders
+      $$('[data-i18n-placeholder]').forEach(el=>{
+        const key = el.getAttribute('data-i18n-placeholder');
+        if(I18N[lang] && I18N[lang][key] !== undefined) el.placeholder = I18N[lang][key];
+      });
+
+      // update elements that show text but not via data-i18n (like select options)
+      $$('option[data-i18n]').forEach(o=>{
+        const key = o.getAttribute('data-i18n');
+        if(I18N[lang] && I18N[lang][key] !== undefined) o.textContent = I18N[lang][key];
+      });
+
+      renderGrid();
+      updateCounters();
+      $('#langToggle').textContent = (lang === 'ar') ? 'EN' : 'ع';
+    }
+
+    // -----------------------
+    // Rendering helpers
+    // -----------------------
+    function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+    function stars(r){
+      const full = Math.floor(r);
+      const half = (r-full)>=0.5;
+      let out = '★'.repeat(full) + (half? '☆':'') + '☆'.repeat(5 - Math.ceil(r));
+      return `<span aria-hidden="true" style="letter-spacing:1px">${out}</span>`;
+    }
+
+    function imgPicture(p){
+      // Use Unsplash params to provide multiple sizes and webp (safe when image is on Unsplash).
+      // For best results, replace URLs with your CDN / real images that have explicit sizes.
+      const base = (p.img || '').split('?')[0];
+      const webp400 = `${base}?q=60&fm=webp&w=400`;
+      const webp800 = `${base}?q=60&fm=webp&w=800`;
+      const jpg400 = `${base}?q=60&w=400&auto=format`;
+      const jpg800 = `${base}?q=60&w=800&auto=format`;
+      // add width/height attributes to reduce CLS (approximate)
+      return `<picture>
+        <source type="image/webp" srcset="${webp400} 400w, ${webp800} 800w" sizes="(max-width:600px) 100vw, 33vw">
+        <img loading="lazy" width="800" height="520" src="${jpg800}" srcset="${jpg400} 400w, ${jpg800} 800w" alt="${escapeHtml(p.name)}" style="width:100%;height:220px;object-fit:cover">
+      </picture>`;
+    }
+
+    function escapeHtml(str){ return (str+'').replace(/[&<>"']/g, (m)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    function matchesFilters(p){
+      if(p.price>state.maxPrice) return false;
+      if(state.cat!=='all' && p.category!==state.cat) return false;
+      if(state.sizes.size && ![...state.sizes].some(s=>p.sizes.includes(s))) return false;
+      if(state.colors.size && ![...state.colors].some(c=>p.colors.includes(c))) return false;
+      if(state.rating>0 && p.rating<state.rating) return false;
+      if(state.q){
+        const q=state.q.toLowerCase();
+        const blob=(p.name+' '+p.category+' '+(p.tags||[]).join(' ')+ ' ' + (p.desc||'')).toLowerCase();
+        if(!blob.includes(q)) return false;
+      }
+      return true;
+    }
+
+    function sortProducts(list){
+      const arr=[...list];
+      switch(state.sort){
+        case 'price-asc': return arr.sort((a,b)=>a.price-b.price);
+        case 'price-desc': return arr.sort((a,b)=>b.price-a.price);
+        case 'rating-desc': return arr.sort((a,b)=>b.rating-a.rating);
+        case 'new': return arr.reverse();
+        default: return arr;
+      }
+    }
+
+    function renderGrid(){
+      const items = sortProducts(PRODUCTS.filter(matchesFilters));
+      $('#resultsNote').textContent = items.length + " " + (state.lang === 'ar' ? 'منتج' : 'products') + (state.q?` ${state.lang === 'ar' ? 'لـ' : 'for'} \"${state.q}\"`:"");
+      const html = items.map(p=>{
+        const wished = state.wish.includes(p.id);
+        const tagHtml = p.tags && p.tags[0] ? `<span class="tag">${escapeHtml(p.tags[0])}</span>` : '';
+        return `
+        <article class="card" aria-labelledby="t-${p.id}">
+          <div class="thumb" role="img" aria-label="${escapeHtml(p.name)}">
+            ${imgPicture(p)}
+            ${tagHtml}
+            <button type="button" class="wish" data-id="${p.id}" aria-label="${wished ? (state.lang==='ar' ? 'إزالة من المفضلة' : 'Remove from wishlist') : (state.lang==='ar'? 'أضف إلى المفضلة' : 'Add to wishlist')}">♡</button>
+          </div>
+          <div class="info">
+            <div id="t-${p.id}" class="title">${escapeHtml(p.name)}</div>
+            <div class="muted">${cap(p.category)}</div>
+            <div class="price">
+              <strong>${money(p.price)}</strong>
+              ${p.oldPrice?`<span class="old">${money(p.oldPrice)}</span>`:''}
+            </div>
+            <div class="muted">${stars(p.rating)} ${p.rating.toFixed(1)}</div>
+            <div class="variants" aria-hidden="true">
+              ${p.colors && p.colors.slice(0,3).map(c=>`<span class="chipbtn">${escapeHtml(c)}</span>`).join('')}
+            </div>
+            <div class="actions">
+              <button type="button" class="btn small" data-qv="${p.id}" aria-label="${state.lang==='ar' ? 'عرض سريع' : 'Quick view'} ${escapeHtml(p.name)}">${state.lang==='ar' ? 'عرض سريع' : 'Quick View'}</button>
+              <button type="button" class="btn ghost small" data-add="${p.id}" aria-label="${state.lang==='ar' ? 'أضف للعربة' : 'Add to cart'} ${escapeHtml(p.name)}">${state.lang==='ar' ? 'أضف' : 'Add'}</button>
+            </div>
+          </div>
+        </article>`;
+      }).join('');
+      $('#grid').innerHTML = html || `<div class="panel">${state.lang==='ar' ? 'لا توجد منتجات تطابق الفلاتر.' : 'No products match your filters.'}</div>`;
+    }
+
+    // -----------------------
+    // Controls
+    // -----------------------
+    $$('#tabs .tab').forEach(b=>b.addEventListener('click',()=>{
+      $$('#tabs .tab').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      state.cat=b.dataset.cat; renderGrid();
+    }));
+
+    $('#sort').addEventListener('change',e=>{ state.sort=e.target.value; renderGrid() });
+    $('#priceRange').addEventListener('input',e=>{ state.maxPrice=+e.target.value; $('#priceVal').textContent=e.target.value; renderGrid() });
+    $$('.f-size').forEach(cb=>cb.addEventListener('change',()=>{ updateSetFromChecks('f-size',state.sizes); renderGrid() }));
+    $$('.f-color').forEach(cb=>cb.addEventListener('change',()=>{ updateSetFromChecks('f-color',state.colors); renderGrid() }));
+    $$('.f-rating').forEach(rb=>rb.addEventListener('change',e=>{ state.rating=+e.target.value; renderGrid() }));
+    $('#clearFilters').addEventListener('click',()=>{ state.sizes.clear(); state.colors.clear(); state.rating=0; $('#priceRange').value=200; $('#priceVal').textContent=200; $$('.f-size, .f-color').forEach(x=>x.checked=false); $$('.f-rating')[2].checked=true; renderGrid() });
+
+    function updateSetFromChecks(cls,set){ set.clear(); $$(`.${cls}:checked`).forEach(x=>set.add(x.value)) }
+
+    $('#searchBtn').addEventListener('click',()=>{ state.q=$('#q').value.trim(); renderGrid() });
+    $('#q').addEventListener('keydown',e=>{ if(e.key==='Enter'){ state.q=e.target.value.trim(); renderGrid() } });
+
+    // -----------------------
+    // Wishlist and Cart
+    // -----------------------
+    function toggleWish(id){
+      const i = state.wish.indexOf(id);
+      if(i>-1) state.wish.splice(i,1); else state.wish.push(id);
+      save(); updateWishDrawer(); updateCounters(); renderGrid();
+    }
+
+    document.body.addEventListener('click',e=>{
+      const w = e.target.closest('.wish[data-id]');
+      if(w){ toggleWish(w.dataset.id); return; }
+
+      const add = e.target.closest('[data-add]');
+      if(add){ addToCart(add.dataset.add); return; }
+
+      const qv = e.target.closest('[data-qv]');
+      if(qv){ openQuick(qv.dataset.qv); return; }
+
+      if(e.target.dataset.qc){ state.quick.color = e.target.dataset.qc; $$('#qColors .chipbtn').forEach(b=>b.classList.toggle('active', b.dataset.qc===state.quick.color)); return; }
+      if(e.target.dataset.qs){ state.quick.size = e.target.dataset.qs; $$('#qSizes .chipbtn').forEach(b=>b.classList.toggle('active', b.dataset.qs===state.quick.size)); return; }
+      if(e.target.id==='qAdd'){ addToCart(state.quick.id,{color:state.quick.color,size:state.quick.size}); closeQuick(); return; }
+      if(e.target.id==='qWish'){ toggleWish(state.quick.id); return; }
+      if(e.target.id==='qShare'){ shareProduct(state.quick.id); return; }
+      if(e.target.dataset.wadd){ addToCart(e.target.dataset.wadd); return; }
+      if(e.target.dataset.wrem){ toggleWish(e.target.dataset.wrem); return; }
+    });
+
+    function updateCounters(){
+      $('#cartCount').textContent = state.cart.reduce((a,b)=>a+b.qty,0);
+      $('#wishCount').textContent = state.wish.length;
+      $('#openCart').setAttribute('aria-expanded', $('#cartDrawer').classList.contains('open') ? 'true' : 'false');
+      $('#openWishlist').setAttribute('aria-expanded', $('#wishDrawer').classList.contains('open') ? 'true' : 'false');
+    }
+
+    function addToCart(id,variant={color:null,size:null}){
+      const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+      const key = id+'|'+(variant.color||'')+'|'+(variant.size||'');
+      const existing = state.cart.find(x=>x.key===key);
+      if(existing) existing.qty++; else state.cart.push({key,id,qty:1,variant});
+      save(); updateCartDrawer(); updateCounters(); openDrawer('#cartDrawer');
+    }
+
+    function updateCartDrawer(){
+      const body = $('#cartBody');
+      if(!state.cart.length){ body.innerHTML = '<div class="muted">'+(state.lang==='ar' ? 'سلة التسوق فارغة.' : 'Your cart is empty.')+'</div>'; $('#subtotal').textContent = money(0); return; }
+      body.innerHTML = state.cart.map(ci=>{
+        const p = PRODUCTS.find(x=>x.id===ci.id);
+        const v = ci.variant; const tag = [v.color||'', v.size||''].filter(Boolean).join(' / ');
+        return `<div class="cart-item">
+          <img loading="lazy" width="64" height="64" src="${p.img}" alt="${escapeHtml(p.name)}" style="border-radius:10px;width:64px;height:64px;object-fit:cover">
+          <div>
+            <div style="font-weight:600">${escapeHtml(p.name)}</div>
+            <div class="muted">${escapeHtml(tag) || (state.lang==='ar' ? 'لا توجد خيارات' : 'No variant selected')}</div>
+            <div>${money(p.price)}</div>
+          </div>
+          <div class="qty">
+            <button type="button" class="iconbtn" data-qty="-1" data-key="${ci.key}">−</button>
+            <div>${ci.qty}</div>
+            <button type="button" class="iconbtn" data-qty="+1" data-key="${ci.key}">+</button>
+            <button type="button" class="iconbtn" data-del="${ci.key}" title="Remove">✕</button>
+          </div>
+        </div>`
+      }).join('');
+      const subtotal = state.cart.reduce((s,ci)=>s+(PRODUCTS.find(p=>p.id===ci.id).price*ci.qty),0);
+      $('#subtotal').textContent = money(subtotal);
+    }
+
+    $('#cartBody').addEventListener('click',e=>{
+      const k = e.target.dataset.key;
+      if(e.target.dataset.qty==='-1'){ const it=state.cart.find(x=>x.key===k); if(it){ it.qty=Math.max(1,it.qty-1); save(); updateCartDrawer(); updateCounters(); }}
+      if(e.target.dataset.qty==='+1'){ const it=state.cart.find(x=>x.key===k); if(it){ it.qty++; save(); updateCartDrawer(); updateCounters(); }}
+      if(e.target.dataset.del){ state.cart = state.cart.filter(x=>x.key!==e.target.dataset.del); save(); updateCartDrawer(); updateCounters(); }
+    });
+
+    // Drawer open/close + focus handling + simple focus trap
+    let lastOpener = null;
+    let trapEl = null;
+    function trapFocus(el){
+      trapEl = el;
+      document.addEventListener('keydown', trapHandler);
+    }
+    function untrapFocus(){
+      trapEl = null;
+      document.removeEventListener('keydown', trapHandler);
+    }
+    function trapHandler(e){
+      if(!trapEl) return;
+      if(e.key === 'Tab'){
+        const focusable = trapEl.querySelectorAll('a,button,input,select,textarea,[tabindex]:not([tabindex="-1"])');
+        const arr = Array.from(focusable).filter(x => !x.disabled && x.offsetParent !== null);
+        if(arr.length===0) return;
+        const first = arr[0], last = arr[arr.length-1];
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+      if(e.key === 'Escape'){
+        // close modal/drawer if any
+        if(trapEl.id === 'quickModal') closeQuick();
+        if(trapEl.id === 'contactModal') { $('#closeContact').click(); }
+        if(trapEl.classList.contains('drawer')) { closeDrawer('#'+trapEl.id); }
+      }
+    }
+
+    function openDrawer(sel){
+      lastOpener = document.activeElement;
+      const el = $(sel);
+      el.classList.add('open');
+      el.setAttribute('aria-hidden','false');
+      if(sel === '#cartDrawer') $('#openCart').setAttribute('aria-expanded','true');
+      if(sel === '#wishDrawer') $('#openWishlist').setAttribute('aria-expanded','true');
+      updateCounters();
+      setTimeout(()=> {
+        const first = el.querySelector('button, [tabindex], a, input');
+        if(first) first.focus();
+      }, 120);
+      trapFocus(el);
+    }
+    function closeDrawer(sel){
+      const el = $(sel);
+      el.classList.remove('open');
+      el.setAttribute('aria-hidden','true');
+      if(sel === '#cartDrawer') $('#openCart').setAttribute('aria-expanded','false');
+      if(sel === '#wishDrawer') $('#openWishlist').setAttribute('aria-expanded','false');
+      updateCounters();
+      if(lastOpener && typeof lastOpener.focus === 'function') lastOpener.focus();
+      lastOpener = null;
+      untrapFocus();
+    }
+    $('#openCart').addEventListener('click',()=>openDrawer('#cartDrawer'));
+    $('#closeCart').addEventListener('click',()=>closeDrawer('#cartDrawer'));
+    $('#openWishlist').addEventListener('click',()=>{ updateWishDrawer(); openDrawer('#wishDrawer')});
+    $('#closeWish').addEventListener('click',()=>closeDrawer('#wishDrawer'));
+
+    function updateWishDrawer(){
+      const body = $('#wishBody');
+      if(!state.wish.length){ body.innerHTML = '<div class="muted">'+(state.lang==='ar' ? 'قائمة الرغبات فارغة.' : 'Your wishlist is empty.')+'</div>'; return; }
+      body.innerHTML = state.wish.map(id=>{
+        const p = PRODUCTS.find(x=>x.id===id);
+        return `<div class="cart-item" style="grid-template-columns:64px 1fr auto">
+          <img loading="lazy" width="64" height="64" src="${p.img}" alt="${escapeHtml(p.name)}" style="border-radius:10px;width:64px;height:64px;object-fit:cover">
+          <div>
+            <div style="font-weight:600">${escapeHtml(p.name)}</div>
+            <div class="muted">${cap(p.category)} • ${money(p.price)}</div>
+          </div>
+          <div class="qty">
+            <button type="button" class="iconbtn" data-wadd="${p.id}">${state.lang==='ar' ? 'أضف' : 'Add'}</button>
+            <button type="button" class="iconbtn" data-wrem="${p.id}">✕</button>
+          </div>
+        </div>`
+      }).join('');
+    }
+
+    // Quick view + share + structured data
+    function openQuick(id){
+      const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+      state.quick = { id, color: p.colors && p.colors[0]||null, size: p.sizes && p.sizes[0]||null };
+      $('#qImg').src = p.img;
+      $('#qTitle').textContent = p.name;
+      $('#qCat').textContent = cap(p.category);
+      $('#qPrice').textContent = money(p.price);
+      $('#qRating').innerHTML = stars(p.rating) + ` ${p.rating.toFixed(1)}`;
+      $('#qDesc').textContent = p.desc;
+      $('#qColors').innerHTML = (p.colors||[]).map(c=>`<button type="button" class="chipbtn ${c===state.quick.color?'active':''}" data-qc="${c}">${escapeHtml(c)}</button>`).join('');
+      $('#qSizes').innerHTML = (p.sizes||[]).map(s=>`<button type="button" class="chipbtn ${s===state.quick.size?'active':''}" data-qs="${s}">${escapeHtml(s)}</button>`).join('');
+      $('#quickModal').classList.add('show'); $('#quickModal').setAttribute('aria-hidden','false');
+      setTimeout(()=> $('#qAdd').focus(),80);
+      history.replaceState({}, '', `?product=${encodeURIComponent(id)}&lang=${state.lang}`);
+      injectProductLD(p);
+      trapFocus($('#quickModal'));
+    }
+    function closeQuick(){
+      $('#quickModal').classList.remove('show'); $('#quickModal').setAttribute('aria-hidden','true');
+      history.replaceState({}, '', location.pathname + `?lang=${state.lang}`);
+      removeProductLD();
+      untrapFocus();
+    }
+    $('#qClose').addEventListener('click',closeQuick);
+    $('#quickModal').addEventListener('click',e=>{ if(e.target.id==='quickModal') closeQuick() });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeQuick() });
+
+    function injectProductLD(p){
+      removeProductLD();
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.id = 'p-ld';
+      script.textContent = JSON.stringify({
+        "@context":"https://schema.org",
+        "@type":"Product",
+        "name": p.name,
+        "image": [p.img],
+        "description": p.desc,
+        "sku": p.id,
+        "brand": { "@type": "Brand", "name": "EliteShop ()" },
+        "offers": { "@type":"Offer","price": p.price.toString(),"priceCurrency":"USD","availability":"https://schema.org/InStock" }
+      });
+      document.head.appendChild(script);
+    }
+    function removeProductLD(){ const s = document.getElementById('p-ld'); if(s) s.remove(); }
+
+    async function shareProduct(id){
+      const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+      const url = location.origin + location.pathname + `?product=${encodeURIComponent(id)}&lang=${state.lang}`;
+      const text = `${p.name} — ${money(p.price)}\n${p.desc}`;
+      if(navigator.share){
+        try { await navigator.share({ title: p.name, text, url }); } catch(e){ console.log('Share cancelled') }
+      } else {
+        try { await navigator.clipboard.writeText(url); alert((state.lang==='ar' ? 'تم نسخ الرابط' : 'Link copied to clipboard')); } catch(e){ prompt((state.lang==='ar' ? 'انسخ هذا الرابط' : 'Copy this link'), url) }
+      }
+    }
+
+    // Checkout / WhatsApp / Promo
+    function checkout(){
+      alert((state.lang==='ar' ? 'عملية شراء تجريبية. ربط بوابة دفع مطلوب.' : 'Mock checkout. Replace with real checkout flow when ready.'));
+    }
+
+    function waMsg(){
+      const phone = '2XXXXXXXXXXX'; // <- replace with your phone with country code
+      const lines = state.cart.map(ci=>{
+        const p = PRODUCTS.find(x=>x.id===ci.id);
+        const v = ci.variant; const tag = [v.color||'', v.size||''].filter(Boolean).join(' / ');
+        return `${p.name} x${ci.qty} ${tag?`(${tag})`:''} — ${money(p.price*ci.qty)}`;
+      }).join('%0A');
+      const total = state.cart.reduce((s,ci)=>s+(PRODUCTS.find(p=>p.id===ci.id).price*ci.qty),0);
+      return `https://api.whatsapp.com/send?phone=${phone}&text=New%20Order:%0A${lines}%0A%0ATotal:%20${money(total)}%0AName:%20[Your%20Name]%0AAddress:%20[City,%20Street]%0APhone:%20[Mobile]`;
+    }
+
+    $('#checkoutBtn').addEventListener('click',checkout);
+    $('#whatsappBtn').addEventListener('click',()=>{ const a=document.createElement('a'); a.href=waMsg(); a.target='_blank'; a.rel='noopener noreferrer'; document.body.appendChild(a); a.click(); a.remove(); });
+
+    $('#applyCoupon').addEventListener('click',()=>{
+      const code = ($('#couponInput').value||'').trim().toUpperCase();
+      if(!code || !PROMOS[code]){ alert((state.lang==='ar' ? 'قسيمة غير صالحة' : 'Invalid coupon')); return; }
+      const discount = PROMOS[code];
+      const subtotal = state.cart.reduce((s,ci)=>s+(PRODUCTS.find(p=>p.id===ci.id).price*ci.qty),0);
+      const newTotal = subtotal * (1 - discount);
+      $('#subtotal').textContent = money(newTotal);
+      alert((state.lang==='ar' ? 'تم تطبيق الكوبون: ' : 'Coupon applied: ') + Math.round(discount*100) + '%');
+    });
+
+    // Theme toggle
+    const THEME_KEY = 'site-theme';
+    function applyTheme(t){
+      document.documentElement.dataset.theme = t;
+      localStorage.setItem(THEME_KEY, t);
+      $('#themeToggle').setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
+    }
+    function initTheme(){
+      const saved = localStorage.getItem(THEME_KEY) || 'light';
+      applyTheme(saved);
+      $('#themeToggle').addEventListener('click', ()=> applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
+    }
+
+    // Contact modal
+    $('#openContact').addEventListener('click', ()=> { $('#contactModal').classList.add('show'); $('#contactModal').setAttribute('aria-hidden','false'); setTimeout(()=>$('#contactForm input')?.focus(),80); trapFocus($('#contactModal')); });
+    $('#closeContact').addEventListener('click', ()=> { $('#contactModal').classList.remove('show'); $('#contactModal').setAttribute('aria-hidden','true'); untrapFocus(); });
+
+    // Cookie / Analytics consent
+    const cookieBanner = $('#cookieBanner');
+    function showCookie(){ cookieBanner.style.display = 'flex'; }
+    function hideCookie(){ cookieBanner.style.display = 'none'; }
+    $('#acceptCookie').addEventListener('click', ()=> { localStorage.setItem('analytics','true'); state.analyticsAllowed = true; hideCookie(); loadAnalytics(); });
+    $('#declineCookie').addEventListener('click', ()=> { localStorage.setItem('analytics','false'); state.analyticsAllowed = false; hideCookie(); });
+
+    function loadAnalytics(){
+      if(!state.analyticsAllowed) return;
+      // Plausible example — replace example.com with your domain when publishing
+      const s = document.createElement('script');
+      s.defer = true;
+      s.src = 'https://plausible.io/js/plausible.js';
+      s.setAttribute('data-domain', 'example.com');
+      document.head.appendChild(s);
+    }
+
+    // Newsletter / small UX
+    $('#subBtn').addEventListener('click', ()=>{
+      const email = ($('#newsEmail').value||'').trim();
+      if(!email) return alert((state.lang==='ar' ? 'أدخل البريد الإلكتروني' : 'Enter email'));
+      localStorage.setItem('sub-'+email, Date.now());
+      alert((state.lang==='ar' ? 'تم الاشتراك — مثال تجريبي.' : 'Subscribed —  only.'));
+      $('#newsEmail').value = '';
+    });
+
+    // Language toggle
+    $('#langToggle').addEventListener('click', ()=>{
+      const next = state.lang === 'ar' ? 'en' : 'ar';
+      applyTranslations(next);
+      // reflect lang in URL
+      const params = new URLSearchParams(location.search);
+      params.set('lang', next);
+      history.replaceState({},'', location.pathname + '?' + params.toString());
+    });
+
+    // Share button
+    $('#qShare').addEventListener('click', ()=> shareProduct(state.quick.id));
+
+    // -----------------------
+    // Local Admin actions
+    // -----------------------
+    $('#openAdmin').addEventListener('click',()=>{ $('#adminPanel').classList.toggle('show'); $('#adminPanel').setAttribute('aria-hidden', !$('#adminPanel').classList.contains('show')); if($('#adminPanel').classList.contains('show')) $('#adm_name').focus(); });
+    $('#closeAdmin').addEventListener('click',()=>{ $('#adminPanel').classList.remove('show'); $('#adminPanel').setAttribute('aria-hidden','true'); });
+
+    $('#adm_clear').addEventListener('click',()=>{
+      $('#adm_name').value=''; $('#adm_cat').value=''; $('#adm_price').value=''; $('#adm_old').value=''; $('#adm_img').value=''; $('#adm_colors').value=''; $('#adm_sizes').value=''; $('#adm_tags').value='';
+    });
+
+    function saveCustomProductsArray(arr){
+      localStorage.setItem('custom_products', JSON.stringify(arr));
+    }
+    function getCustomProductsArray(){
+      try{ const raw = localStorage.getItem('custom_products'); if(!raw) return []; return JSON.parse(raw); }catch(e){ return []; }
+    }
+
+    $('#adm_save').addEventListener('click',()=>{
+      const name = $('#adm_name').value.trim();
+      if(!name) return alert('Name is required');
+      const cat = $('#adm_cat').value.trim()||'accessories';
+      const price = parseFloat($('#adm_price').value) || 0;
+      const oldPrice = parseFloat($('#adm_old').value) || 0;
+      const img = $('#adm_img').value.trim() || 'https://images.unsplash.com/photo-1520974722071-69aabc0cc7d7?q=80&w=1200&auto=format&fit=crop';
+      const colors = $('#adm_colors').value.split(',').map(s=>s.trim()).filter(Boolean);
+      const sizes = $('#adm_sizes').value.split(',').map(s=>s.trim()).filter(Boolean);
+      const tags = $('#adm_tags').value.split(',').map(s=>s.trim()).filter(Boolean);
+      const id = 'c-' + Math.random().toString(36).slice(2,9);
+      const p = { id, name, category:cat, price, oldPrice, rating:4.5, colors, sizes, img, desc: '', tags };
+      const arr = getCustomProductsArray();
+      arr.push(p);
+      saveCustomProductsArray(arr);
+      // merge immediately
+      PRODUCTS.push(p);
+      renderGrid();
+      alert('Product added locally');
+      $('#adm_clear').click();
+    });
+
+    $('#adm_export').addEventListener('click',()=>{
+      const arr = getCustomProductsArray();
+      const out = JSON.stringify(arr, null, 2);
+      // download file
+      const blob = new Blob([out], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='custom_products.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    $('#adm_import').addEventListener('click',()=>{
+      try{
+        const raw = $('#adm_import_area').value.trim();
+        if(!raw) return alert('Paste JSON to import');
+        const arr = JSON.parse(raw);
+        if(!Array.isArray(arr)) return alert('Invalid JSON format');
+        // basic normalization
+        const cur = getCustomProductsArray();
+        arr.forEach(p=>{
+          if(!p.id) p.id = 'c-' + Math.random().toString(36).slice(2,9);
+          cur.push(p);
+        });
+        saveCustomProductsArray(cur);
+        // reload into PRODUCTS and UI
+        loadCustomProducts(); renderGrid();
+        alert('Imported to local storage');
+      }catch(e){
+        alert('Import failed: ' + e.message);
+      }
+    });
+
+    // -----------------------
+    // Init
+    // -----------------------
+    function init(){
+      // load locally-saved products before anything else
+      loadCustomProducts();
+
+      // set initial language from URL or browser
+      const params = new URLSearchParams(location.search);
+      const qlang = params.get('lang');
+      const browser = navigator.language && navigator.language.startsWith('ar') ? 'ar' : 'en';
+      const initial = qlang || browser;
+      applyTranslations(initial);
+      initTheme();
+
+      renderGrid(); updateCartDrawer(); updateWishDrawer(); updateCounters();
+      $('#yr').textContent = new Date().getFullYear();
+
+      // cookie banner
+      if(localStorage.getItem('analytics') === null){ showCookie(); } else { if(localStorage.getItem('analytics') === 'true') { state.analyticsAllowed = true; loadAnalytics(); } }
+
+      // open product if provided
+      const pid = params.get('product');
+      if(pid){ setTimeout(()=>openQuick(pid), 150); }
+    }
+    init();
+
+    // Expose for debugging
+    window.__ELITE = { state, PRODUCTS, renderGrid, addToCart, toggleWish, applyTranslations, saveCustomProductsArray, getCustomProductsArray };
+  </script>
+
+<section id="about" style="padding:40px; background:#f9f9f9;">
+    <h2 style="text-align:center; font-size:2em; color:#333;">عن المطور</h2>
+    <p style="max-width:800px; margin:auto; text-align:center; font-size:1.1em; line-height:1.8; color:#555;">
+    أنا عمّار معاطي — مطور مواقع إلكترونية متخصص في تصميم وتطوير حلول ويب عصرية للشركات والأفراد.
+    أمتلك خبرة في بناء متاجر إلكترونية احترافية، مواقع شركات، وصفحات هبوط بتصميمات حديثة وأداء عالي.
+    </p>
+</section>
+
+<section id="contact" style="padding:40px; background:#fff;">
+    <h2 style="text-align:center; font-size:2em; color:#333;">تواصل معنا</h2>
+    <div style="max-width:900px; margin:auto; text-align:right; font-size:1.05em; line-height:1.9; color:#333;">
+        <p><strong>الاسم:</strong> AmmarMaaty (عمّار معاطي)</p>
+        <p><strong>الهاتف:</strong> 01270197969</p>
+        <p><strong>الإيميل:</strong> <a href="mailto:marmaty815@gmail.com">marmaty815@gmail.com</a></p>
+        <p><strong>السيرة الذاتية:</strong> <a href="/AmmarMaaty_Resume.pdf" target="_blank" rel="noopener noreferrer">تحميل السيرة الذاتية (PDF)</a></p>
+
+        <hr style="margin:12px 0; border-color:var(--muted)">
+
+        <p>أنا عمّار معاطي، مطور مواقع ومتاجر إلكترونية، بحب أحول الأفكار لواقع على الإنترنت. من أول فكرة الموقع لحد ما يبقى شغال ويجيب لك عملاء، أنا موجود في كل خطوة.</p>
+
+        <p><strong>شغلي دايمًا بيركز على حاجتين:</strong></p>
+        <ul>
+          <li>تصميم يكون شكله حلو ويشد عين الزائر.</li>
+          <li>موقع سريع وسهل الاستخدام عشان العميل يلاقي اللي عايزه من غير ما يحتار.</li>
+        </ul>
+
+        <p>اشتغلت على مواقع ومتاجر لعملاء في مجالات مختلفة، وكل مرة هدفي واحد: أعمل حاجة تفرق وتنجح.</p>
+
+        <p>لو عندك فكرة أو مشروع وعايزه يظهر بأحسن صورة على الإنترنت، كلمني وهنشتغل عليه لحد ما يطلع حاجة تفتخر بيها.</p>
+    </div>
+</section>
+
+</body>
+</html>
